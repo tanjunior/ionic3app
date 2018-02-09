@@ -1,17 +1,28 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button *ngIf="userRole == 0 || userRole == 1 || userRole == 2" navPush="AddPostPage" ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item>
+          <ion-card *ngFor="let post of posts | async" text-wrap (click)="viewPost(post)">
+            <h3>{{ post?.title }}</h3>
+            <img [src]="imgurl">
+          </ion-card>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
 </ion-content>

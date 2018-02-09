@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-input floating placeholder="User name" [(ngModel)]="user.username"></ion-input>
+  </ion-item>
+
+  <!-- <ion-item>
+    <ion-input floating placeholder="Role" [(ngModel)]="user.role"></ion-input>
+  </ion-item> -->
+
+  <button ion-button clear block (click)="saveProfile(user)">Save</button>
+</ion-content>
