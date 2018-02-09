@@ -17,10 +17,9 @@ export class ProfilePage {
   
 
   constructor(public navCtrl: NavController, public firebaseService: FirebaseService, shareService: ShareService) {
-    this.user = shareService.getUser().subscribe(u = > {
-      console.log(['profile.ts]' ,u);
+    this.user = shareService.getUser().subscribe(u => {
+      this.user = u;
     });
-    
   }
 
 

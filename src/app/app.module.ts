@@ -16,7 +16,6 @@ import { FirebaseService } from './../providers/firebase-service/firebase-servic
 import { ToastService } from '../providers/toast-service/toast-service';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { ShareService } from '../providers/share-service/share-service';
-import { TestProvider } from '../providers/test/test';
 //import { firebase } from '@firebase/app';
 
 @NgModule({
@@ -43,8 +42,7 @@ import { TestProvider } from '../providers/test/test';
     FirebaseService,
     ToastService,
     ShareService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TestProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
