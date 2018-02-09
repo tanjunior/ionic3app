@@ -3,7 +3,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { FirebaseService } from './../../providers/firebase-service/firebase-service';
 import { Post } from '../../models/post/post.model';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../../models/user/user.model';
 import firebase from 'firebase';
 
 @IonicPage()

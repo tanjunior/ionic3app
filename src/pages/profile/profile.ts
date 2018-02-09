@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { User } from '../../models/user/user.model';
 import firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
 import { FirebaseService } from '../../providers/firebase-service/firebase-service';
 import {ShareService } from '../../providers/share-service/share-service'
 
