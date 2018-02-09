@@ -1,6 +1,6 @@
-# ionic3app
+# ionic3app Work in Progress
 My first ionic3 app
 <br>-firebase v4
 <br>-angularfire2 v5
 
-https://tanjunior.github.io/ionic3app
+Preview at https://tanjunior.github.io/ionic3app
