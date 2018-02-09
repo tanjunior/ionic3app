@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { map } from 'rxjs/operator/map';
+import { map } from 'rxjs/operator/';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
