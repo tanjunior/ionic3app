@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user/user.model';
-import { FirebaseService } from '../../providers/firebase-service/firebase-service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import firebase, { User } from 'firebase';
 
 @IonicPage()
 @Component({
@@ -9,14 +9,30 @@ import { FirebaseService } from '../../providers/firebase-service/firebase-servi
   templateUrl: 'edit-profile.html',
 })
 export class EditProfilePage {
-  user = this.navParams.get("user");
-  uid = this.navParams.get("uid");
+  user;
+  uid = firebase.auth().currentUser.uid;
+  previousPage = this.navCtrl.last().id;
+  countries;
+  c;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseService) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
+    if (this.previousPage == "ProfilePage") {
+      console.log("i came from profile page");
+      this.user = this.navParams.get("user")
+    } else if (this.previousPage == "RegisterPage") {
+      this.user = {} as User;
+      console.log("i came from profile page");
+    }
+    this.user.country = this.c.capital;
+  }
 
-  saveProfile(user: User) {
-    this.firebaseService.editUser(user).then(() => {
-      this.navCtrl.pop();
+  saveProfile() {
+    this.db.list(`users`).update(this.uid, this.user).then(() =>{
+      if (this.previousPage == "RegisterPage") {
+        this.navCtrl.setRoot("TabsPage");
+      } else if (this.previousPage == "ProfilePage") {
+        this.navCtrl.pop();
+      }
     });
   }
 

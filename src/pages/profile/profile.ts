@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import firebase from 'firebase';
-import { FirebaseService } from '../../providers/firebase-service/firebase-service';
-import {ShareService } from '../../providers/share-service/share-service'
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -11,24 +10,23 @@ import {ShareService } from '../../providers/share-service/share-service'
 })
 export class ProfilePage {
   user;
+  uid: string;
   currentUser = firebase.auth().currentUser;
   profileKey: string;
   role;
-  
 
-  constructor(public navCtrl: NavController, public firebaseService: FirebaseService, shareService: ShareService) {
-    this.user = shareService.getUser().subscribe(u => {
-      this.user = u;
+  constructor(public navCtrl: NavController, public db: AngularFireDatabase) {
+    let currentUser = firebase.auth().currentUser;
+    this.uid = currentUser.uid;
+    this.db.object(`users/${this.uid}`).snapshotChanges()
+    .subscribe(data => {
+      this.profileKey = data.key;
+      this.user = data.payload.val();
     });
   }
 
-
-
-  ionViewWillLoad(){ 
-    
-  }
   editProfile() {
-    this.navCtrl.push("EditProfilePage", {user: this.user, uid: this.currentUser.uid});
+    this.navCtrl.push("EditProfilePage", { user: this.user });
   }
 
 }

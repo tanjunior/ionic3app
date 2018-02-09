@@ -9,6 +9,8 @@ export class TabsPage {
   tab1Root: any = 'HomePage';
   tab2Root: any = 'AboutPage';
   tab3Root: any = 'ProfilePage';
+  user;
 
   constructor() { }
+
 }

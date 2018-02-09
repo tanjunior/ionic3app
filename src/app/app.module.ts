@@ -8,15 +8,14 @@ import { AboutPage } from '../pages/about/about';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FirebaseService } from './../providers/firebase-service/firebase-service';
 import { ToastService } from '../providers/toast-service/toast-service';
 import { FIREBASE_CONFIG } from './firebase.credentials';
-import { ShareService } from '../providers/share-service/share-service';
-//import { firebase } from '@firebase/app';
+
+import { CountryPickerModule } from 'ngx-country-picker';
 
 @NgModule({
   declarations: [
@@ -25,11 +24,11 @@ import { ShareService } from '../providers/share-service/share-service';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    CountryPickerModule.forRoot(),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    IonicModule.forRoot(MyApp),
-    AngularFireAuthModule
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +40,6 @@ import { ShareService } from '../providers/share-service/share-service';
     SplashScreen,
     FirebaseService,
     ToastService,
-    ShareService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
