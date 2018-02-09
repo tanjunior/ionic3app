@@ -17,20 +17,13 @@ export class ProfilePage {
   
 
   constructor(public navCtrl: NavController, public firebaseService: FirebaseService, shareService: ShareService) {
-    this.user = shareService.getUser();
-    
-    //this.loadUser();
+    this.user = shareService.getUser().subscribe(u = > {
+      console.log(['profile.ts]' ,u);
+    });
     
   }
 
-  loadUser() {
-    this.firebaseService.db.object(`/users/${this.currentUser.uid}`).snapshotChanges().subscribe(userData => { // Get database of current user uid
-      this.profileKey = userData.key;
-      this.role = this.user.role;
-      this.user = userData.payload.val();
-      //console.log(this.user);
-    });
-  }
+
 
   ionViewWillLoad(){ 
     
