@@ -1,4 +1,4 @@
-# ionic3app Work in Progress
+# ionic3app (Work in Progress)
 My first ionic3 app
 <br>-firebase v4
 <br>-angularfire2 v5
