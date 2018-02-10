@@ -40,7 +40,7 @@ import { CountryPickerModule } from 'ngx-country-picker';
     SplashScreen,
     FirebaseService,
     ToastService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

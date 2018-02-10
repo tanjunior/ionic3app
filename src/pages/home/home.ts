@@ -14,7 +14,6 @@ export class HomePage {
   currentUser = firebase.auth().currentUser;
   posts: Observable<any[]>;
   userRole: number;
-  imgurl: string = "https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg";
 
   constructor(public navCtrl: NavController, private firebaseService: FirebaseService) {
     this.loadPosts();

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -10,19 +10,21 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class ProfilePage {
   user;
-  uid: string;
-  currentUser = firebase.auth().currentUser;
+  uid = firebase.auth().currentUser.uid;;
   profileKey: string;
   role;
 
-  constructor(public navCtrl: NavController, public db: AngularFireDatabase) {
-    let currentUser = firebase.auth().currentUser;
-    this.uid = currentUser.uid;
-    this.db.object(`users/${this.uid}`).snapshotChanges()
-    .subscribe(data => {
-      this.profileKey = data.key;
-      this.user = data.payload.val();
-    });
+  constructor(public navCtrl: NavController, public db: AngularFireDatabase, private navParams: NavParams) {
+    if (this.navCtrl.last().id == "PostPage") {
+      this.user = this.navParams.get('user');
+      this.profileKey = this.navParams.get('uid');
+    } else {
+      this.db.object(`users/${this.uid}`).snapshotChanges()
+        .subscribe(data => {
+          this.profileKey = data.key;
+          this.user = data.payload.val();
+        });
+    }
   }
 
   editProfile() {

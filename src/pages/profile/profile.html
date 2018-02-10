@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>{{ user?.username }}</ion-title>
     <ion-buttons end>
-      <button *ngIf="currentUser.uid == profileKey" (click)="editProfile()" ion-button icon-only>
+      <button *ngIf="uid == profileKey" (click)="editProfile()" ion-button icon-only>
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <p>username: {{ (user)?.username }}</p>
+      <p>username: {{ user?.username }}</p>
     </ion-item>
   </ion-list>
 </ion-content>

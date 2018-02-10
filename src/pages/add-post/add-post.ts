@@ -35,7 +35,7 @@ export class AddPostPage {
   addPost(post: Post) {
     this.firebaseService.addPost(post).then(ref => {
       console.log(ref.key);
-      this.firebaseService.db.list(`user`).update(this.userId.concat("/posts/"+ref.key), {title: post.title});
+      this.firebaseService.db.list(`users`).update(this.userId.concat("/posts/"+ref.key), {title: post.title});
       this.toast.show(`${post.title} added!`);
       this.navCtrl.setRoot('TabsPage', { key: ref.key });
     });
