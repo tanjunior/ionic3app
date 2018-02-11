@@ -15,16 +15,20 @@ export class ProfilePage {
   role;
 
   constructor(public navCtrl: NavController, public db: AngularFireDatabase, private navParams: NavParams) {
-    if (this.navCtrl.last().id == "PostPage") {
-      this.user = this.navParams.get('user');
-      this.profileKey = this.navParams.get('uid');
-    } else {
+    if (this.navCtrl.last() == undefined) {
+      this.profileKey = this.uid;
       this.db.object(`users/${this.uid}`).snapshotChanges()
         .subscribe(data => {
-          this.profileKey = data.key;
           this.user = data.payload.val();
         });
+    } else {
+      this.user = this.navParams.get('user');
+      this.profileKey = this.navParams.get('uid');
     }
+  }
+
+  ionViewDidEnter() {
+    console.log(this.user);
   }
 
   editProfile() {

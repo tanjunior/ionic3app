@@ -12,6 +12,7 @@ import firebase from 'firebase';
 })
 export class HomePage {
   currentUser = firebase.auth().currentUser;
+  asd;
   posts: Observable<any[]>;
   userRole: number;
 

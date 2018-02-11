@@ -14,20 +14,20 @@ export class PostPage {
   uid = firebase.auth().currentUser.uid;
   role = this.navParams.get("role");
   post = this.navParams.get('post');
-  owner;
+  postOwner;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase) {
-    this.getOwnerName();
+    this.getPostOwner();
   }
 
-  getOwnerName() {
-    this.db.object(`/users/${this.post.owner}`).snapshotChanges().subscribe(user => { // Get database of current user uid
-      this.owner = user.payload.val();
+  getPostOwner() {
+    this.db.object(`/users/${this.post.owner}`).snapshotChanges().subscribe(user => {
+      this.postOwner = user.payload.val();
     });
   }
 
   viewOwnerProfile(user: User) {
-    this.navCtrl.push('ProfilePage', { user: this.owner, uid: this.post.owner });
+    this.navCtrl.push('ProfilePage', { user: this.postOwner, uid: this.post.owner });
   }
 
   editPost(post: Post) {
