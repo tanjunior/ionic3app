@@ -16,24 +16,12 @@ export class HomePage {
   userRole: number;
 
   constructor(public navCtrl: NavController, private firebaseService: FirebaseService) {
-    this.loadPosts();
-    this.getRole();
-  }
-
-  ionViewWillEnter() {
-
-  }
-
-  ionViewWillLoad() {
-
-  }
-
-  loadPosts() {
     this.posts = this.firebaseService.getPosts().map(actions => {
       return actions.map(action => {
         return {key: action.payload.key, ...action.payload.val()}
       });
     });
+    this.getRole();
   }
 
   getRole() {

@@ -3,19 +3,20 @@
   <ion-navbar color="primary">
     <ion-title>{{ post?.title }}</ion-title>
     <ion-buttons end>
-        <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost()" ion-button>
-          <ion-icon name="document"></ion-icon>
-        </button>
-        <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost()" ion-button>
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost()" ion-button>
+        <ion-icon name="document"></ion-icon>
+      </button>
+      <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost()" ion-button>
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <img [src]="post?.imgurl">
   <h4>{{ post.content }}</h4>
   <p (click)="viewOwnerProfile(owner)">by {{ postOwner?.username }}</p>
 </ion-content>

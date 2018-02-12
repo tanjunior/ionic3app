@@ -11,6 +11,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { FirebaseService } from './../providers/firebase-service/firebase-service';
+import { UploadService } from '../providers/upload-service/upload-service';
 import { ToastService } from '../providers/toast-service/toast-service';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 
@@ -39,6 +40,7 @@ import { CountryPickerModule } from 'ngx-country-picker';
     SplashScreen,
     ElasticModule,
     FirebaseService,
+    UploadService,
     ToastService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]

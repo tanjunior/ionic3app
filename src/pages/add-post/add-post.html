@@ -13,11 +13,20 @@
       <ion-label floating>Title</ion-label>
       <ion-input type="text" [(ngModel)]="post.title"></ion-input>
     </ion-item>
+
+    <ion-item style="height: 100px;">
+      <!-- show selected image here? -->
+      <!-- <img [src]=""> -->
+      <ion-label fixed>Image</ion-label>
+      <ion-input type="file" accept="image/*" (change)="selectImage($event)"></ion-input>
+      
+    </ion-item>
+
     <ion-item>
       <ion-label floating>Content</ion-label>
       <ion-textarea fz-elastic [(ngModel)]="post.content"></ion-textarea>
     </ion-item>
   </ion-list>
 
-  <button ion-button block clear (click)="addPost(post)">Add</button>
+  <button ion-button block class="btn btn-success" [disabled]="!selectedFiles" (click)="addPost(post)">Add</button>
 </ion-content>
