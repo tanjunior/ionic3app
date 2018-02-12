@@ -3,6 +3,7 @@ import { IonicPage, NavController, Loading, LoadingController } from 'ionic-angu
 import { User } from '../../models/user/user.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ICountry, CountryPickerService } from 'ngx-country-picker';
 
 @IonicPage()
 @Component({
@@ -12,8 +13,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class RegisterPage {
   loading: Loading;
   user = {} as User;
+  countries: ICountry[] = [];
 
-  constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, private db: AngularFireDatabase, public loadCtrl: LoadingController) {}
+  constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, private db: AngularFireDatabase, public loadCtrl: LoadingController, public cPickService: CountryPickerService) {
+    this.cPickService.getCountries().subscribe((countries: ICountry[]) => //get all country
+    this.countries = countries); // store it in countries
+  }
 
   async register(user: User) {
     this.loading = this.loadCtrl.create();

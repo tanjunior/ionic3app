@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-import firebase from 'firebase';
+import { CountryPickerService, ICountry } from 'ngx-country-picker';
 
 @IonicPage()
 @Component({
@@ -10,9 +10,12 @@ import firebase from 'firebase';
 })
 export class EditProfilePage {
   user = this.navParams.get("user");
-  uid = firebase.auth().currentUser.uid;
+  uid = this.navParams.get("uid");
+  countries: ICountry[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase, public cPickService: CountryPickerService) {
+    this.cPickService.getCountries().subscribe((countries: ICountry[]) => //get all country
+      this.countries = countries); // store it in countries
   }
 
   saveProfile() {

@@ -8,18 +8,23 @@
 
 
 <ion-content padding>
-    <!-- not working https://github.com/guillaume-ro-fr/ngx-country-picker/issues/4#issuecomment-364513694 -->
-    <!-- <country-picker></country-picker> -->
   <ion-list>
     <ion-item>
-      <ion-input floating placeholder="User name" [(ngModel)]="user.username"></ion-input>
+      <ion-label floating>User name</ion-label>
+      <ion-input [(ngModel)]="user.username"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="number" floating placeholder="Age" [(ngModel)]="user.age"></ion-input>
+      <ion-label floating>Age</ion-label>
+      <ion-input type="number" [(ngModel)]="user.age"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input floating placeholder="Country" [(ngModel)]="user.country"></ion-input>
-      
+      <ion-label floating>Country</ion-label>
+      <ion-select [(ngModel)]="user.country">
+        <ion-option *ngFor="let country of countries" [value]="country.name.common">{{ country.name.common }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+
     </ion-item>
   </ion-list>
 

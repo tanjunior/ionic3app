@@ -32,7 +32,7 @@ export class ProfilePage {
   }
 
   editProfile() {
-    this.navCtrl.push("EditProfilePage", { user: this.user });
+    this.navCtrl.push("EditProfilePage", { user: this.user, uid: this.uid });
   }
 
 }
