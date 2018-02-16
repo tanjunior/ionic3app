@@ -11,22 +11,22 @@ import firebase from 'firebase';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  currentUser = firebase.auth().currentUser;
+  uid = firebase.auth().currentUser.uid;
   posts: Observable<any[]>;
-  userRole: number;
+  role: number;
 
   constructor(public navCtrl: NavController, private firebaseService: FirebaseService) {
     this.posts = this.firebaseService.getPosts().map(actions => {
       return actions.map(action => {
-        return {key: action.payload.key, ...action.payload.val()}
+        return {key: action.key, ...action.payload.val()}
       });
     });
     this.getRole();
   }
 
   getRole() {
-    this.firebaseService.db.object(`/users/${this.currentUser.uid}`).snapshotChanges().subscribe(user => { // Get database of current user uid
-      this.userRole = user.payload.val().role; // Get role value
+    this.firebaseService.db.object(`/users/${this.uid}`).snapshotChanges().subscribe(user => { // Get database of current user uid
+      this.role = user.payload.child('role').val(); // Get role value
     });
   }
 
@@ -35,12 +35,16 @@ export class HomePage {
   }
 
   viewPost(post: Post) {
-    this.navCtrl.push('PostPage', { post: post, role: this.userRole });
+    this.navCtrl.push('PostPage', { post: post, role: this.role });
   }
 
-  async logOut(): Promise<void> {
-    await firebase.auth().signOut();
-    this.navCtrl.setRoot('LoginPage');
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

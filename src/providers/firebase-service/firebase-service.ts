@@ -5,12 +5,9 @@ import { Post } from '../../models/post/post.model';
 @Injectable()
 export class FirebaseService {
   private postsRef = this.db.list<any>('/posts');
-  private usersRef = this.db.list<any>('/users');
-  
+  private usersRef = this.db.list<any>('/users');  
 
-  constructor(public db: AngularFireDatabase) {
-    
-  }
+  constructor(public db: AngularFireDatabase) {}
 
   getPosts() {
     return this.postsRef.snapshotChanges();

@@ -13,7 +13,8 @@
 
 
 
-<ion-content padding>
+<ion-content padding scrollbar-y-auto>
+  <img src="assets/imgs/user-default.jpg">
   <ion-list>
     <ion-item>
       <p>username: {{ user?.username }}</p>
@@ -25,4 +26,24 @@
       <p>country: {{ user?.country }}</p>
     </ion-item>
   </ion-list>
+
+  <ion-toolbar color="dark">
+    <ion-segment color="secondary" [(ngModel)]="priceList">
+      <ion-segment-button value="monday">MON</ion-segment-button>
+      <ion-segment-button value="tuesday">TUE</ion-segment-button>
+      <ion-segment-button value="wednesday">WED</ion-segment-button>
+      <ion-segment-button value="thursday">THU</ion-segment-button>
+      <ion-segment-button value="friday">FRI</ion-segment-button>
+      <ion-segment-button value="saturday">SAT</ion-segment-button>
+      <ion-segment-button value="sunday">SUN</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-list>
+    <ion-item *ngFor="let item of getItems(priceList)">
+      <button ion-button outline item-end></button>
+
+    </ion-item>
+  </ion-list>
+
 </ion-content>

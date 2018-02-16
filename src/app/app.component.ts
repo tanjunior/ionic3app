@@ -13,7 +13,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
 
     //firebase.initializeApp(FIREBASE_CONFIG);
-    const authObserver = afAuth.authState.subscribe(user => {
+    const authObserver = afAuth.authState.take(1).subscribe(user => {
       if (user) {
         this.rootPage = 'TabsPage';
         authObserver.unsubscribe();

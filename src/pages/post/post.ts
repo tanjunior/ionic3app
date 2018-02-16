@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../models/post/post.model';
-import * as firebase from 'firebase';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '../../models/user/user.model';
+import { FirebaseService } from '../../providers/firebase-service/firebase-service';
 
 @IonicPage()
 @Component({
@@ -11,17 +10,16 @@ import { User } from '../../models/user/user.model';
   templateUrl: 'post.html',
 })
 export class PostPage {
-  uid = firebase.auth().currentUser.uid;
-  role = this.navParams.get("role");
+  role = this.navParams.get('role');
   post = this.navParams.get('post');
-  postOwner;
+  postOwner: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseService) {
     this.getPostOwner();
   }
 
   getPostOwner() {
-    this.db.object(`/users/${this.post.owner}`).snapshotChanges().subscribe(user => {
+    this.firebaseService.db.object(`/users/${this.post.owner}`).snapshotChanges().subscribe(user => {
       this.postOwner = user.payload.val();
     });
   }
@@ -33,4 +31,10 @@ export class PostPage {
   editPost(post: Post) {
     this.navCtrl.push('EditPostPage', { post: this.post });
   }
+
+  deletePost(post: Post) {
+    this.firebaseService.deletePost(this.post).then(() => {
+      this.navCtrl.setRoot('TabsPage');
+    });
+  }  
 }

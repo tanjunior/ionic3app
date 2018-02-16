@@ -2,29 +2,27 @@
   <ion-navbar color="primary">
     <ion-title>Home</ion-title>
     <ion-buttons end>
-      <button *ngIf="userRole == 0 || userRole == 1 || userRole == 2" navPush="AddPostPage" ion-button icon-only>
-        <ion-icon name="add"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon>
-      </button>
-    </ion-buttons>
+
+      </ion-buttons> 
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-row>
-    <ion-col>
-      <ion-list>
-        <ion-item>
-          
-            <ion-card style="background: #a4aeb4" *ngFor="let post of posts | async" text-wrap (click)="viewPost(post)">
-                <ion-label>{{ post?.title }}</ion-label>
-              <img [src]="post.imgurl">
-            </ion-card>
-          
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
+<ion-content padding scrollbar-y-auto>
+
+  <ion-card color="secondary" *ngFor="let post of posts | async" text-wrap (click)="viewPost(post)">
+    <ion-label>{{ post?.title }}</ion-label>
+    <img [src]="post.imgurl">
+  </ion-card>
+
+  <ion-fab right bottom *ngIf="role == 0 || role == 1 || role == 2">
+    <button ion-fab color="light" navPush="AddPostPage">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  
 </ion-content>

@@ -15,8 +15,16 @@
 </ion-header>
 
 
-<ion-content padding>
-  <img [src]="post?.imgurl">
-  <h4>{{ post.content }}</h4>
-  <p (click)="viewOwnerProfile(owner)">by {{ postOwner?.username }}</p>
+<ion-content padding scrollbar-y-auto>
+  <ion-card>
+    <ion-chip (click)="viewOwnerProfile(owner)" style="border-radius:26px;height:50px;font-size:18px;line-height:45px;margin:2px 0 5px 0;">
+      <ion-avatar style="width:50px;height:50px;">
+        <img src="assets/imgs/user-default.jpg">
+      </ion-avatar>
+      <ion-label>{{ postOwner?.username }}</ion-label>
+    </ion-chip>
+    <img [src]="post?.imgurl">
+    <h4>{{ post.content }}</h4>
+  </ion-card>
+
 </ion-content>

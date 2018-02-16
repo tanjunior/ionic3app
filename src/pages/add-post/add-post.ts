@@ -4,7 +4,6 @@ import { Post } from '../../models/post/post.model';
 import { FirebaseService } from '../../providers/firebase-service/firebase-service';
 import { ToastService } from '../../providers/toast-service/toast-service';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { UploadFile } from '../../models/upload-file/upload-file.model';
 import { UploadService } from '../../providers/upload-service/upload-service';
 
@@ -57,8 +56,9 @@ export class AddPostPage {
         this.currentFileUpload = new UploadFile(file);
         this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
       }).then(() => {
-        this.toast.show(`${post.title} added!`);
-        this.navCtrl.setRoot('TabsPage');
+        this.toast.show(`${post.title} added!`).then(() => {
+          this.navCtrl.setRoot('TabsPage');
+        });
       });
     });
   }
