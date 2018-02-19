@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { IonicPage, NavController } from 'ionic-angular';
 
 /**
  * Generated class for the ChangePasswordPage page.
@@ -16,9 +15,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class ChangePasswordPage {
   email: string;
-  handleError;
 
-  constructor(public navCtrl: NavController, private afAuth: AngularFireAuth, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController) {
   }
 
   changePassword() {

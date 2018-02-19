@@ -31,6 +31,7 @@ export class RegisterPage {
           username: this.user.username,
           country: this.user.country,
           age: this.user.age,
+          role: 2
         }).then(() => {
           this.loading.dismiss().then(() => {
           this.navCtrl.setRoot('TabsPage');

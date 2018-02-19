@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>pricelist</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding scrollbar-y-auto>
+  <ion-toolbar color="secondary">
+    <ion-segment color="primary" [(ngModel)]="day">
+      <ion-segment-button value="monday">MON</ion-segment-button>
+      <ion-segment-button value="tuesday">TUE</ion-segment-button>
+      <ion-segment-button value="wednesday">WED</ion-segment-button>
+      <ion-segment-button value="thursday">THU</ion-segment-button>
+      <ion-segment-button value="friday">FRI</ion-segment-button>
+      <ion-segment-button value="saturday">SAT</ion-segment-button>
+      <ion-segment-button value="sunday">SUN</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngFor="let time of getTimings(day)">
+    <ion-list>
+      <ion-list-header color="primary">{{ time }}</ion-list-header>
+      <ion-item *ngFor="let item of getItems(time)">
+        {{ item.name }}
+        <button ion-button outline item-end>{{ item.price }}</button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

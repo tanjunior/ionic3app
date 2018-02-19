@@ -3,15 +3,22 @@
     <ion-title>Home</ion-title>
     <ion-buttons end>
 
-      </ion-buttons> 
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding scrollbar-y-auto>
 
-  <ion-card color="secondary" *ngFor="let post of posts | async" text-wrap (click)="viewPost(post)">
-    <ion-label>{{ post?.title }}</ion-label>
-    <img [src]="post.imgurl">
+  <ion-card color="secondary" *ngFor="let post of posts | async">
+    <ion-card-title>
+      <ion-chip (click)="viewOwnerProfile(post.ownerKey)">
+        <ion-avatar>
+          <img src="assets/imgs/user-default.jpg">
+        </ion-avatar>
+        <ion-label>{{ post.owner }}</ion-label>
+      </ion-chip>
+      {{ post.title }}</ion-card-title>
+    <img text-wrap (click)="viewPost(post)" [src]="post.imgurl">
   </ion-card>
 
   <ion-fab right bottom *ngIf="role == 0 || role == 1 || role == 2">
@@ -24,5 +31,5 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  
+
 </ion-content>

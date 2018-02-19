@@ -25,6 +25,10 @@ export class FirebaseService {
     return this.postsRef.remove(post.key);
   }
 
+  deletePostFromUser(uid: string, post: Post) {
+    return this.db.list<any>(`/users/${uid}/posts/`).remove(post.key);
+  }
+
   getUsers() {
     return this.usersRef.snapshotChanges();
   }

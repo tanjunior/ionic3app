@@ -18,7 +18,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, private firebaseService: FirebaseService) {
     this.posts = this.firebaseService.getPosts().map(actions => {
       return actions.map(action => {
-        return {key: action.key, ...action.payload.val()}
+        return { key: action.key, ...action.payload.val() }
       });
     });
     this.getRole();
@@ -35,7 +35,15 @@ export class HomePage {
   }
 
   viewPost(post: Post) {
-    this.navCtrl.push('PostPage', { post: post, role: this.role });
+    this.navCtrl.push('PostPage', { post: post, role: this.role, uid: this.uid });
+  }
+
+  viewOwnerProfile(key: string) {
+    this.firebaseService.db.object(`/users/${key}`).snapshotChanges().subscribe(user => {
+      let postOwner = user.payload.val().then(() => {
+        this.navCtrl.push('ProfilePage', { user: postOwner, uid: key });
+      });
+    });
   }
 
   doRefresh(refresher) {

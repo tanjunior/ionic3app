@@ -12,20 +12,18 @@ import { FirebaseService } from '../../providers/firebase-service/firebase-servi
 export class PostPage {
   role = this.navParams.get('role');
   post = this.navParams.get('post');
-  postOwner: any;
+  uid = this.navParams.get('uid');
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseService) {
-    this.getPostOwner();
-  }
-
-  getPostOwner() {
-    this.firebaseService.db.object(`/users/${this.post.owner}`).snapshotChanges().subscribe(user => {
-      this.postOwner = user.payload.val();
-    });
   }
 
   viewOwnerProfile(user: User) {
-    this.navCtrl.push('ProfilePage', { user: this.postOwner, uid: this.post.owner });
+    this.firebaseService.db.object(`/users/${this.post.ownerKey}`).snapshotChanges().subscribe(user => {
+      let postOwner = user.payload.val().then(() => {
+        this.navCtrl.push('ProfilePage', { user: postOwner, uid: this.post.ownerKey });
+      });
+    });
+
   }
 
   editPost(post: Post) {
@@ -34,7 +32,9 @@ export class PostPage {
 
   deletePost(post: Post) {
     this.firebaseService.deletePost(this.post).then(() => {
-      this.navCtrl.setRoot('TabsPage');
+      this.firebaseService.deletePostFromUser(this.uid, this.post).then(() => {
+        this.navCtrl.popToRoot();
+      });
     });
-  }  
+  }
 }

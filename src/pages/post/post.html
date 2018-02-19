@@ -3,10 +3,10 @@
   <ion-navbar color="primary">
     <ion-title>{{ post?.title }}</ion-title>
     <ion-buttons end>
-      <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost()" ion-button>
+      <button *ngIf="post.ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost(post)" ion-button>
         <ion-icon name="document"></ion-icon>
       </button>
-      <button *ngIf="post.owner == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost()" ion-button>
+      <button *ngIf="post.ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost(post)" ion-button>
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
@@ -17,11 +17,11 @@
 
 <ion-content padding scrollbar-y-auto>
   <ion-card>
-    <ion-chip (click)="viewOwnerProfile(owner)" style="border-radius:26px;height:50px;font-size:18px;line-height:45px;margin:2px 0 5px 0;">
+    <ion-chip (click)="viewOwnerProfile(postOwner)" style="border-radius:26px;height:50px;font-size:18px;line-height:45px;margin:2px 0 5px 0;">
       <ion-avatar style="width:50px;height:50px;">
         <img src="assets/imgs/user-default.jpg">
       </ion-avatar>
-      <ion-label>{{ postOwner?.username }}</ion-label>
+      <ion-label>{{ post.owner }}</ion-label>
     </ion-chip>
     <img [src]="post?.imgurl">
     <h4>{{ post.content }}</h4>

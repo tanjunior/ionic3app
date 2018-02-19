@@ -3,9 +3,9 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Post } from '../../models/post/post.model';
 import { FirebaseService } from '../../providers/firebase-service/firebase-service';
 import { ToastService } from '../../providers/toast-service/toast-service';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { UploadFile } from '../../models/upload-file/upload-file.model';
 import { UploadService } from '../../providers/upload-service/upload-service';
+import firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -16,8 +16,10 @@ export class AddPostPage {
   selectedFiles: FileList;
   currentFileUpload: UploadFile;
   progress: { percentage: number } = { percentage: 0 };
-  userId: string;
+  userId = firebase.auth().currentUser.uid;
+  userName: string;
   post: Post = {
+    ownerKey: '',
     owner: '',
     title: '',
     content: '',
@@ -29,15 +31,12 @@ export class AddPostPage {
     public navParams: NavParams,
     private firebaseService: FirebaseService,
     private toast: ToastService,
-    private afAuth: AngularFireAuth,
     public uploadService: UploadService,
     public events: Events) {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userId = user.uid;
-        this.post.owner = this.userId;
-      }
+    this.firebaseService.db.object(`/users/${this.userId}`).snapshotChanges().subscribe(data => { // Get database of current user uid
+      this.post.owner = data.payload.child('username').val();
     });
+    this.post.ownerKey = this.userId;
   }
 
   ngOnInit() {
@@ -57,7 +56,7 @@ export class AddPostPage {
         this.uploadService.pushFileToStorage(this.currentFileUpload, this.progress);
       }).then(() => {
         this.toast.show(`${post.title} added!`).then(() => {
-          this.navCtrl.setRoot('TabsPage');
+          this.navCtrl.popToRoot();
         });
       });
     });
