@@ -9,22 +9,23 @@ import { AngularFireDatabase } from 'angularfire2/database';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  user;
+  user = this.navParams.get('user');
   uid = firebase.auth().currentUser.uid;;
-  profileKey: string;
-  role;
+  profileKey: string = this.navParams.get('uid');
 
   constructor(public navCtrl: NavController, public db: AngularFireDatabase, private navParams: NavParams) {
-    this.user = this.navParams.get('user');
-    this.profileKey = this.navParams.get('uid');
   }
 
   editProfile() {
     this.navCtrl.push("EditProfilePage", { user: this.user, uid: this.uid });
   }
-  
+
   pricelist() {
-    this.navCtrl.push("PricelistPage", { user: this.user, uid: this.uid });
+    if (this.navCtrl.last().id == "MePage") {
+      this.navCtrl.push("PricelistPage", { profileKey: this.uid });
+    } else {
+      this.navCtrl.push("PricelistPage", { profileKey: this.profileKey });
+    }
   }
 
 }

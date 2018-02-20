@@ -19,11 +19,9 @@ export class PostPage {
 
   viewOwnerProfile(user: User) {
     this.firebaseService.db.object(`/users/${this.post.ownerKey}`).snapshotChanges().subscribe(user => {
-      let postOwner = user.payload.val().then(() => {
-        this.navCtrl.push('ProfilePage', { user: postOwner, uid: this.post.ownerKey });
-      });
+      let postOwner = user.payload.val();
+      this.navCtrl.push('ProfilePage', { user: postOwner, uid: this.post.ownerKey });
     });
-
   }
 
   editPost(post: Post) {

@@ -25,7 +25,7 @@
     <ion-item>
       <p>country: {{ user?.country }}</p>
     </ion-item>
-    <ion-item color="secondary" (click)="pricelist()">
+    <ion-item *ngIf="(user.role) == 2" color="secondary" (click)="pricelist()">
         <ion-label>Price list</ion-label>
       </ion-item>
   </ion-list>

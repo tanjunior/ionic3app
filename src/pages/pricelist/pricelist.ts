@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-//import firebase from 'firebase';
+import firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -9,7 +9,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
   templateUrl: 'pricelist.html',
 })
 export class PricelistPage {
-  profileKey: string = this.navParams.get('uid');;
+  profileKey: string = this.navParams.get('profileKey');
+  uid: string = firebase.auth().currentUser.uid;
   day: string = "thursday";
   pricelist: Array<any> = [];
   //itemRef: firebase.database.Reference = firebase.database().ref(`/pricelists/${this.profileKey}`);
@@ -19,9 +20,8 @@ export class PricelistPage {
   }
 
   ionViewWillLoad() {
-    this.db.object(`/pricelists/${this.profileKey}/pricelist`).snapshotChanges().subscribe(data => {
+    this.db.object(`/pricelists/${this.profileKey}`).snapshotChanges().subscribe(data => {
       this.pricelist = data.payload.val();
-      console.log(this.pricelist);
     });
 
     /*  not sure why this is not working */
@@ -48,6 +48,10 @@ export class PricelistPage {
       items.push(this.pricelist[this.day][time][item]);
     }
     return items;
+  }
+
+  editPricelist() {
+    this.navCtrl.push("EditPricelistPage", { key: this.profileKey });
   }
 
 }
