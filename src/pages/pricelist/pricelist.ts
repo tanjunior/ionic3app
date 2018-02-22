@@ -51,7 +51,7 @@ export class PricelistPage {
   }
 
   editPricelist() {
-    this.navCtrl.push("EditPricelistPage", { key: this.profileKey });
+    this.navCtrl.push("EditPricelistPage", { key: this.profileKey, day: this.day });
   }
 
 }

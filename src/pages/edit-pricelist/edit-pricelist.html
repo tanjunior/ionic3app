@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{ day }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding scrollbar-y-auto>
+
+  <div *ngFor="let time of timings">
+    <ion-list>
+      <ion-list-header color="primary">{{time}}</ion-list-header>
+      <ion-item *ngFor="let item of getItems(time)">
+
+        <ion-label>{{ item[1].name }}</ion-label>
+        <button ion-button outline item-end>{{ item[1].price }}</button>
+
+        <button (click)="deleteItem(time, item[0])" item-end ion-button icon-only color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+
+      </ion-item>
+
+      <ion-item color="light">
+        <ion-input [(ngModel)]="itemName" placeholder="Item"></ion-input>
+        <ion-input [(ngModel)]="itemPrice" placeholder="Price"></ion-input>
+        <button ion-button icon-only item-end (click)="addItem(time, itemName, itemPrice)">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-item>
+
+    </ion-list>
+  </div>
+  <br>
+  <ion-list-header color="light">
+    <ion-input [(ngModel)]="time" placeholder="Enter your timing here"></ion-input>
+    <button ion-button icon-only item-end (click)="addTiming(time)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-list-header>
+
+</ion-content>
