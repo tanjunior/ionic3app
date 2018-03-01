@@ -4,5 +4,4 @@ export interface Post {
     owner: string;
     title: string;
     content: string;
-    imgurl: string;
 }

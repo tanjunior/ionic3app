@@ -30,12 +30,8 @@ export class HomePage {
     });
   }
 
-  deletePost(post: Post) {
-    this.firebaseService.deletePost(post);
-  }
-
   viewPost(post: Post) {
-    this.navCtrl.push('PostPage', { post: post, role: this.role, uid: this.uid });
+    this.navCtrl.push('PostPage', { post: post, role: this.role, uid: this.uid, postId: post.key, ownerId: post.ownerKey });
   }
 
   viewOwnerProfile(key: string) {

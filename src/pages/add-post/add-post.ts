@@ -23,7 +23,6 @@ export class AddPostPage {
     owner: '',
     title: '',
     content: '',
-    imgurl: '',
   }
 
   constructor(

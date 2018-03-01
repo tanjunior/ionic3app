@@ -3,10 +3,10 @@
   <ion-navbar color="primary">
     <ion-title>{{ post?.title }}</ion-title>
     <ion-buttons end>
-      <button *ngIf="post.ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost(post)" ion-button>
+      <button *ngIf="ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="editPost()" ion-button>
         <ion-icon name="document"></ion-icon>
       </button>
-      <button *ngIf="post.ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost(post)" ion-button>
+      <button *ngIf="ownerKey == uid || role == 0 || role == 1" ion-button icon-only (click)="deletePost()" ion-button>
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
@@ -21,10 +21,28 @@
       <ion-avatar style="width:50px;height:50px;">
         <img src="assets/imgs/user-default.jpg">
       </ion-avatar>
-      <ion-label>{{ post.owner }}</ion-label>
+      <ion-label>{{ post?.owner }}</ion-label>
     </ion-chip>
     <img [src]="post?.imgurl">
-    <h4>{{ post.content }}</h4>
+    <h4>{{ post?.content }}</h4>
   </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let comment of comments">
+      <ion-label fixed>
+        {{comment?.owner}}
+      </ion-label>
+      <div item-content>
+        {{comment?.comment}}
+      </div>
+    </ion-item>
+    <ion-item color="light">
+      <ion-input [(ngModel)]="comment" placeholder="Comment"></ion-input>
+      <button ion-button icon-only item-end (click)="addComment(comment)">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
 
 </ion-content>

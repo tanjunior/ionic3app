@@ -25,14 +25,16 @@
     </ion-segment>
   </ion-toolbar>
 
-  <div *ngFor="let time of getTimings(day)">
-    <ion-list>
-      <ion-list-header color="primary">{{ time }}</ion-list-header>
-      <ion-item *ngFor="let item of getItems(time)">
-        <ion-label>{{ item.name }}</ion-label>
-        <button ion-button outline item-end>{{ item.price }}</button>
-      </ion-item>
-    </ion-list>
+  <div *ngIf="(pricelist)">
+    <div *ngFor="let time of getTimings(day)">
+      <ion-list>
+        <ion-list-header color="primary">{{ time }}</ion-list-header>
+        <ion-item *ngFor="let item of getItems(time)">
+          <ion-label>{{ item.name }}</ion-label>
+          <button ion-button outline item-end>{{ item.price }}</button>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 
 </ion-content>
