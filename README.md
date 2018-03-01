@@ -3,4 +3,4 @@ My first ionic3 app
 <br>-firebase v4
 <br>-angularfire2 v5
 
-Preview at https://tanjunior.github.io/ionic3app updated 16 Febuary 2018
+Preview at https://tanjunior.github.io/ionic3app updated 22 Febuary 2018
