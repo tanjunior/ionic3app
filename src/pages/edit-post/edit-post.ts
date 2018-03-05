@@ -10,11 +10,12 @@ import { FirebaseService } from '../../providers/firebase-service/firebase-servi
 })
 export class EditPostPage {
   post = this.navParams.get("post");
+  postId = this.navParams.get("postId");
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseService) { }
 
   savePost(post: Post) {
-    this.firebaseService.editPost(post).then(() => {
+    this.firebaseService.editPost(this.postId,this.post).then(() => {
       this.navCtrl.pop();
     });
   }

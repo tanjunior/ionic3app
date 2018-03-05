@@ -37,8 +37,8 @@
       </div>
     </ion-item>
     <ion-item color="light">
-      <ion-input [(ngModel)]="comment" placeholder="Comment"></ion-input>
-      <button ion-button icon-only item-end (click)="addComment(comment)">
+      <ion-input type="text" [(ngModel)]="message"></ion-input>
+      <button ion-button icon-only item-end (click)="addComment()">
         <ion-icon name="send"></ion-icon>
       </button>
     </ion-item>

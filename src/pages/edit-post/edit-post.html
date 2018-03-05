@@ -13,7 +13,7 @@
       <ion-label floating>Title</ion-label>
       <ion-input type="text" [(ngModel)]="post.title"></ion-input>
     </ion-item>
-    <ion-item *ngIf="post.imgurl"><img [src]="post.imgurl"></ion-item>
+    <ion-item *ngIf="post.imgurl"><img [src]="post?.imgurl"></ion-item>
     <ion-item>
       <ion-label floating>Content</ion-label>
       <ion-textarea fz-elastic [(ngModel)]="post.content"></ion-textarea>

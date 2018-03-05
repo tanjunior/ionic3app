@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Post } from '../../models/post/post.model';
 import { User } from '../../models/user/user.model';
 import { FirebaseService } from '../../providers/firebase-service/firebase-service';
 
@@ -11,21 +10,30 @@ import { FirebaseService } from '../../providers/firebase-service/firebase-servi
 })
 export class PostPage {
   role = this.navParams.get('role');
-  //post = this.navParams.get('post');
-  post;
   postId = this.navParams.get('postId');
   ownerId = this.navParams.get('ownerId');
   uid = this.navParams.get('uid');
+  username: string = "";
+  message: string = "";
+  comments = [];
+  post;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firebaseService: FirebaseService) {
-    this.getPost();
+    this.firebaseService.db.object<any>(`/posts/${this.postId}`).snapshotChanges().subscribe(data => {
+      this.post = data.payload.val();
+      this.getComments(data.payload.child('comments').val());
+    });
+
+    this.firebaseService.db.object(`/users/${this.uid}`).snapshotChanges().subscribe(user => {
+      this.username = user.payload.child('username').val();
+    });
   }
 
-  getPost() {
-    this.firebaseService.db.object<any>(`/posts/${this.postId}`).snapshotChanges().subscribe(data => {
-      console.log(data.payload.val().comments);
-      this.post = data.payload.val();
-    });
+  getComments(coms) {
+    this.comments = [];
+    for (let com in coms) {
+      this.comments.push(coms[com]);
+    }
   }
 
   viewOwnerProfile(user: User) {
@@ -35,23 +43,21 @@ export class PostPage {
     });
   }
 
-  addComment(comment: string) {
-    this.firebaseService.db.object(`/users/${this.uid}`).snapshotChanges().subscribe(user => {
-      let username = user.payload.child('username').val()
-      this.firebaseService.db.list(`posts/${this.postId}/comments`).push({ ownerKey: this.uid, owner: username, comment: comment });
-    });
-
+  addComment() {
+    this.firebaseService.db.list(`posts/${this.postId}/comments`).push({ ownerKey: this.uid, owner: this.username, comment: this.message });
+    this.message = "";
   }
 
   editPost() {
-    this.navCtrl.push('EditPostPage', { post: this.post });
+    this.navCtrl.push('EditPostPage', { post: this.post, postId: this.postId });
   }
 
-  deletePost(post: Post) {
-    this.firebaseService.deletePost(this.post).then(() => {
-      this.firebaseService.deletePostFromUser(this.uid, this.post).then(() => {
+  deletePost() {
+    this.firebaseService.deletePost(this.postId).then(() => {
+      this.firebaseService.deletePostFromUser(this.ownerId, this.postId).then(() => {
         this.navCtrl.popToRoot();
       });
     });
   }
+
 }

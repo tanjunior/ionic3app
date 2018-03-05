@@ -17,16 +17,16 @@ export class FirebaseService {
     return this.postsRef.push(post);
   }
 
-  editPost(post: Post) {
-    return this.postsRef.update(post.key, post);
+  editPost(postId: string, post: Post) {
+    return this.postsRef.update(postId, post);
   }
 
-  deletePost(post: Post) {
-    return this.postsRef.remove(post.key);
+  deletePost(postId: string) {
+    return this.postsRef.remove(postId);
   }
 
-  deletePostFromUser(uid: string, post: Post) {
-    return this.db.list<any>(`/users/${uid}/posts/`).remove(post.key);
+  deletePostFromUser(uid: string, postId: string) {
+    return this.db.list<any>(`/users/${uid}/posts/`).remove(postId);
   }
 
   getUsers() {

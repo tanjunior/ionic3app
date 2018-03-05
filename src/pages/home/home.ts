@@ -31,7 +31,7 @@ export class HomePage {
   }
 
   viewPost(post: Post) {
-    this.navCtrl.push('PostPage', { post: post, role: this.role, uid: this.uid, postId: post.key, ownerId: post.ownerKey });
+    this.navCtrl.push('PostPage', { role: this.role, uid: this.uid, postId: post.key, ownerId: post.ownerKey });
   }
 
   viewOwnerProfile(key: string) {
