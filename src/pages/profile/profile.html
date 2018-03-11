@@ -26,7 +26,17 @@
       <p>country: {{ user?.country }}</p>
     </ion-item>
     <ion-item *ngIf="(user.role) == 2" color="secondary" (click)="pricelist()">
-        <ion-label>Price list</ion-label>
-      </ion-item>
+      <ion-label>Price list</ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer *ngIf="profileKey != uid">
+  <ion-toolbar color="secondary">
+    <button color={{followColor}} ion-button full round icon-start (click)="follow()">
+      <ion-icon color="secondary" name={{followIcon}}></ion-icon>
+      {{followText}}
+    </button>
+  </ion-toolbar>
+
+</ion-footer>

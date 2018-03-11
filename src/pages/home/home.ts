@@ -35,8 +35,9 @@ export class HomePage {
   }
 
   viewOwnerProfile(key: string) {
-    this.firebaseService.db.object(`/users/${key}`).snapshotChanges().subscribe(user => {
+    let userData = this.firebaseService.db.object(`/users/${key}`).snapshotChanges().subscribe(user => {
       let postOwner = user.payload.val();
+      userData.unsubscribe();
       this.navCtrl.push('ProfilePage', { user: postOwner, uid: key });
     });
   }

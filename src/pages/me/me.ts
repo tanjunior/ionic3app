@@ -17,17 +17,13 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class MePage {
   user;
-  uid = firebase.auth().currentUser.uid;;
+  uid = firebase.auth().currentUser.uid;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase) {
     this.db.object(`users/${this.uid}`).snapshotChanges()
       .subscribe(data => {
         this.user = data.payload.val();
       });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MePage');
   }
 
   profilePage() {
